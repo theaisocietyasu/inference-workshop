@@ -67,26 +67,6 @@ Rerun the numbers any time while the server is up:
 python3 metrics.py --url http://127.0.0.1:8080
 ```
 
-## On a pod (Godfather or any remote box)
-
-The server listens on `127.0.0.1` only. Forward the port to your laptop, then open it in the browser.
-
-```mermaid
-flowchart LR
-    L[your browser<br/>localhost:8080] -->|ssh -L or VS Code port forward| S[pod<br/>llama-server :8080]
-```
-
-- VS Code Remote-SSH: Ports panel, forward the port `run.sh` prints.
-- ssh: `ssh -L 8080:127.0.0.1:8080 <your ssh target>`
-
-Each person on a shared pod gets their own free port, starting at 8080.
-
-To prepare a Godfather pod ahead of time, open Member setup on the pod and set:
-
-- Repo: `https://github.com/theaisocietyasu/inference-from-scratch`
-- Script: `cd inference-from-scratch && ./setup.sh`
-
-Setup is safe to run again. Its output goes to `~/godfather-setup.log`.
 
 ## GPU notes
 
@@ -99,9 +79,6 @@ flowchart TB
     D -->|no| F[use CPU]
 ```
 
-- Member setup stops a step after 300 seconds, so a source build may not finish there. `./run.sh` picks it up where it stopped.
-- Point several people at one install with `LLAMA_HOME=/some/shared/dir` so the GPU build happens once.
-- `BACKEND=cpu ./run.sh` forces CPU, which makes a good comparison against the GPU numbers.
 
 ## Knobs
 
